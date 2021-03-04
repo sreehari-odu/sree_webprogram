@@ -63,7 +63,7 @@ if(isset($_POST['register'])){
             $_SESSION['success'] = "You are now logged in";
             $to = $email;
             $subject = "Account Created";
-            $msg = "Hi there, Your account has been successfully created. \n\nYour username is ".$uname.".\n\n<a href=\"http://192.168.1.102/signin.php\">Click Here</a> to Login. ";
+            $msg = "Hi there, Your account has been successfully created. \n\nYour username is ".$uname.".\n\n<a href=\"http://localhost/signin.php\">Click Here</a> to Login. ";
             $msg = wordwrap($msg,70);
 
             $success = sendEmail($to, $subject, $msg);
@@ -171,8 +171,8 @@ if (isset($_POST['reset'])) {
 
         // Send email to user with the token in a link they can click on
         $to = $email;
-        $subject = "Reset your password on examplesite.com";
-        $msg = "Hi there, click on this <a href=\"http://192.168.1.102/newpassword.php?token=" . $token . "\">link</a> to reset your password on our site";
+        $subject = "Reset your password";
+        $msg = "Hi there, click on this <a href=\"http://localhost/newpassword.php?token=" . $token . "\">link</a> to reset your password on our site";
         $msg = wordwrap($msg,70);
         sendEmail($to, $subject, $msg);
         array_push($errors, "An email was sent to the registered address. Click the link the email to reset your password");
