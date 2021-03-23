@@ -1,5 +1,5 @@
-<?php require 'header.php';
-require 'processs.php';
+<?php require_once 'header.php';
+require_once 'processs.php';
 ?>
     <section class="signup_area signup_area_height">
         <div class="row ml-0 mr-0">
@@ -13,10 +13,21 @@ require 'processs.php';
             <div class="sign_right signup_right">
                 <div class="sign_inner signup_inner">
                     <div class="text-center">
-                        <h3>Enter a new password</h3>
+                        <h3>Reset to a new password</h3>
                     </div>
                     <?php include ('errors.php');?>
                     <form action="newpassword.php" class="row login_form" method="post">
+                        <?php
+                        if(!isset($_REQUEST['token'])){
+                        ?>
+                        <div class="col-lg-12 form-group">
+                            <label class="small_text" for="token">One time code</label>
+                            <input id="token" name="token" minlength="5" required type="text" value="" class="form-control" placeholder="Code from email" autocomplete="off">
+                        </div>
+
+                            <?php
+                        }
+                        ?>
                         <div class="col-lg-12 form-group">
                             <label class="small_text" for="password">New Password</label>
                             <input id="password" name="password" minlength="5" required type="password" class="form-control" placeholder="5+ characters required" autocomplete="off">
@@ -35,4 +46,4 @@ require 'processs.php';
     </section>
 
 
-<?php require 'footer-js.php';
+<?php require_once 'footer-js.php';

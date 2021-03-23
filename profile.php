@@ -1,7 +1,7 @@
 <?php
-require 'header.php';
-require 'navigation.php';
-require 'helpers.php'
+require_once 'header.php';
+require_once 'navigation.php';
+require_once 'helpers.php'
 ?>
         <section class="doc_banner_area single_breadcrumb">
             <ul class="list-unstyled banner_shap_img">
@@ -24,24 +24,65 @@ require 'helpers.php'
                     </ul>
                 </div>
             </div>
-            <form action="#" class="header_search_form">
-                <div class="header_search_form_info">
+            <div class="header_search_form_info">
+                <form action="search.php" class="header_search_form" method="get">
                     <div class="form-group">
                         <div class="input-wrapper">
                             <label style="display: none" for="searchbox">Search</label>
                             <input type='search' id="searchbox" autocomplete="off" name="search"
                                    placeholder="Search for Topics...." />
                         </div>
-                        <button type="submit" class="submit_btn">Search</button>
+                        <button type="submit" name="basicsearch" id="basicsearch" class="submit_btn">Search</button>
                     </div>
                     <div class="float-right">
                         <ul class="nav">
-                            <li><a href="#">Advanced Search</a></li>
+                            <li><a data-toggle="collapse" href="#multiCollapseExample1" role="button" aria-expanded="false"
+                                   aria-controls="multiCollapseExample1">Advanced Search</a>
                         </ul>
                     </div>
-                </div>
+                </form>
 
-            </form>
+                <div class="collapse multi-collapse mt-5" style="padding-left: 8px;" id="multiCollapseExample1">
+                    <div class="card card-body toggle_body">
+                        <form action="search.php" method="get">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="author">Author</label>
+                                        <input type="text" class="form-control" placeholder="" id="author" name="author">
+                                    </div>
+                                </div>
+                                <!--  col-md-6   -->
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="department">Department</label>
+                                        <input type="text" class="form-control" placeholder="" id="department" name="department">
+                                    </div>
+                                </div>
+                                <!--  col-md-6   -->
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="subject">Subject</label>
+                                        <input type="text" class="form-control" placeholder="" id="subject" name="subject">
+                                    </div>
+                                </div>
+                                <!--  col-md-6   -->
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="publisher">Publisher</label>
+                                        <input type="tel" class="form-control" id="publisher" name="publisher">
+                                    </div>
+                                </div>
+                                <!--  col-md-6   -->
+                            </div>
+
+                            <button type="submit" class="btn btn-primary mt-2" name="advancedsearch" id="advancedsearch">Submit</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
         </section>
 
         <!--================Forum Content Area =================-->
@@ -61,15 +102,8 @@ require 'helpers.php'
                                     </a>
                                 </li>
                                 <li class="nav-item" role="presentation">
-                                    <a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab"
-                                        aria-controls="profile" aria-selected="false">
-                                        <i class="icon_documents"></i> Topics Started
-                                    </a>
-                                </li>
-                                <li class="nav-item" role="presentation">
-                                    <a class="nav-link" id="contact-tab" data-toggle="tab" href="#contact" role="tab"
-                                        aria-controls="contact" aria-selected="false">
-                                        <i class="icon_chat"></i> Replies Created
+                                    <a class="nav-link" id="profile-tab"  href="addDocument.php">
+                                        <i class="icon_documents"></i> Add Documents
                                     </a>
                                 </li>
                                 <li class="nav-item" role="presentation">
@@ -105,7 +139,7 @@ require 'helpers.php'
                                                     <div class="p_info_item">
                                                         <img src="img/icon/p-icon-1.png" alt="">
                                                         <a href="#">
-                                                            <h4>Forum Role</h4>
+                                                            <h4>Role</h4>
                                                         </a>
                                                         <a class="info_btn" href="#">User</a>
                                                     </div>
@@ -114,7 +148,7 @@ require 'helpers.php'
                                                     <div class="p_info_item">
                                                         <img src="img/icon/p-icon-2.png" alt="">
                                                         <a href="#">
-                                                            <h4>Topics Started</h4>
+                                                            <h4>Documents Added</h4>
                                                         </a>
                                                         <a class="info_number" href="#">0</a>
                                                     </div>
@@ -123,7 +157,7 @@ require 'helpers.php'
                                                     <div class="p_info_item">
                                                         <img src="img/icon/p-icon-3.png" alt="">
                                                         <a href="#">
-                                                            <h4>Replies Created</h4>
+                                                            <h4>Search History</h4>
                                                         </a>
                                                         <a class="info_number" href="#">0</a>
                                                     </div>
@@ -204,5 +238,5 @@ require 'helpers.php'
         </section>
         <!--================End Forum Content Area =================-->
 <?php
-require 'footer.php';
+require_once 'footer.php';
 ?>

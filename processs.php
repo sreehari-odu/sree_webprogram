@@ -162,7 +162,7 @@ if (isset($_POST['reset'])) {
     }
     if (count($errors) == 0) {
         // generate a unique random token of length 50
-        $token = bin2hex(random_bytes(50));
+        $token = bin2hex(random_bytes(5));
         $uname = $user['uname'];
         $email = $user['email'];
         // store token in the password-reset database table against the user's email
@@ -172,10 +172,13 @@ if (isset($_POST['reset'])) {
         // Send email to user with the token in a link they can click on
         $to = $email;
         $subject = "Reset your password";
-        $msg = "Hi there, click on this <a href=\"http://localhost/newpassword.php?token=" . $token . "\">link</a> to reset your password on our site";
-        $msg = wordwrap($msg,70);
+        $msg = "Hi there, click on this <a href=\"http://localhost/newpassword.php?token=" . $token . "\">link</a> to reset your password on our site.
+        <br><br>Alternatively, you can also set a new password at 
+        <a href=\"http://localhost/newpassword.php\">http://localhost/newpassword.php</a> by entering the one time code <strong>$token</strong>";
+        $msg = wordwrap($msg,80);
         sendEmail($to, $subject, $msg);
-        array_push($errors, "An email was sent to the registered address. Click the link the email to reset your password");
+        array_push($errors, "An email was sent to the registered address. Click the link the email to reset your password. 
+        <br>As an alternative, if you have the token with you, <a href=\"http://localhost/newpassword.php\">Click Here</a> to enter a new password");
     }
 }
 //Reset Password with a token
@@ -185,18 +188,22 @@ if(isset($_REQUEST['token'])){
     $results = mysqli_query($db, $sql);
     if(mysqli_num_rows($results) <= 0){
         array_push($errors, "Token is invalid");
+        unset($_REQUEST['token']);
     }else{
 
         $resetRecord = mysqli_fetch_assoc($results);
         if($resetRecord['used']==1){
             array_push($errors, "Your token has already been used. Please try to reset your password again by clicking <a href='resetpassword.php'>here</a>");
+            unset($_REQUEST['token']);
         }
          if(time() - strtotime($resetRecord['created_date']) >= 3600){
             array_push($errors, "Your token is expired. Please try to reset your password again by clicking <a href='resetpassword.php'>here</a>");
+             unset($_REQUEST['token']);
         }else{
              $_SESSION['token'] = $token;
          }
     }
+
 
 }
 // Update password through Reset Password Link
@@ -230,5 +237,10 @@ if (isset($_POST['updatepass'])) {
             header('location: signin.php');
         }
     }
+//    else{
+//        if(isset($_REQUEST['token'])){
+//            unset($_REQUEST['token']);
+//        }
+//    }
 }
 

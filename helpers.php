@@ -17,3 +17,18 @@ function _ago($tm,$rcs = 0) {
     if(($rcs == 1)&&($v >= 1)&&(($cur_tm-$_tm) > 0)) $x .= time_ago($_tm);
     return $x . ' ago';
 }
+function printArrayValue($input){
+    $returnString = '';
+    if(is_array($input)){
+        $count = 0;
+        foreach($input as $key){
+            if($count >0)
+                $returnString.=", ";
+            $returnString.= $key;
+            $count++;
+        }
+    }else{
+        return $input;
+    }
+    return $returnString;
+}

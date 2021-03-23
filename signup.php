@@ -1,5 +1,5 @@
-<?php require 'header.php';
-require 'processs.php';
+<?php require_once 'header.php';
+require_once 'processs.php';
 ?>
         <section class="signup_area signup_area_height">
             <div class="row ml-0 mr-0">
@@ -20,19 +20,19 @@ require 'processs.php';
                         <form action="signup.php" class="row login_form" method="post">
                             <div class="col-sm-6 form-group">
                                 <label class="small_text" for="fname">First name</label>
-                                <input type="text" class="form-control" required name="fname" id="fname" placeholder="John" autocomplete="off">
+                                <input type="text" class="form-control" required name="fname" id="fname" placeholder="" autocomplete="off">
                             </div>
                             <div class="col-sm-6 form-group">
                                 <label class="small_text" for="lname">Last name</label>
-                                <input type="text" class="form-control" required name="lname" id="lname" placeholder="Doe" autocomplete="off">
+                                <input type="text" class="form-control" required name="lname" id="lname" placeholder="" autocomplete="off">
                             </div>
                             <div class="col-lg-12 form-group">
                                 <label class="small_text" for="uname">Your Username</label>
-                                <input type="text" class="form-control" required id="uname" name="uname" placeholder="jdoe" autocomplete="off">
+                                <input type="text" class="form-control" required id="uname" name="uname" placeholder="" autocomplete="off">
                             </div>
                             <div class="col-lg-12 form-group">
                                 <label class="small_text" for="email">Your email</label>
-                                <input type="email" class="form-control" required id="email" name="email" placeholder="jdoe@example.com" autocomplete="off">
+                                <input type="email" class="form-control" required id="email" name="email" placeholder="" autocomplete="off">
                             </div>
                             <div class="col-lg-12 form-group">
                                 <label class="small_text" for="password">Password</label>
@@ -58,4 +58,4 @@ require 'processs.php';
         </section>
 
 
-<?php require 'footer-js.php';
+<?php require_once 'footer-js.php';

@@ -1,5 +1,5 @@
-<?php require 'header.php';
-require 'processs.php';
+<?php require_once 'header.php';
+require_once 'processs.php';
 ?>
         <section class="signup_area">
             <div class="row ml-0 mr-0">
@@ -40,4 +40,4 @@ require 'processs.php';
         </section>
 
 
-<?php require 'footer-js.php';
+<?php require_once 'footer-js.php';

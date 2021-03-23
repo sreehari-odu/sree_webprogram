@@ -1,5 +1,5 @@
-<?php require 'header.php';
-require 'navigation.php'
+<?php require_once 'header.php';
+require_once 'navigation.php'
 ?>
 
 
@@ -23,24 +23,67 @@ require 'navigation.php'
       <div class="container">
         <div class="doc_banner_content">
           <h2 class="wow fadeInUp">Coming Soon!</h2>
-          <form action="#" class="header_search_form">
+
             <div class="header_search_form_info">
-              <div class="form-group">
-                <div class="input-wrapper">
-                    <label style="display: none" for="searchbox">Search</label>
-                    <input type='search' id="searchbox" autocomplete="off" name="search"
-                    placeholder="Search for Topics...." />
+                <form action="search.php" class="header_search_form" method="get">
+                  <div class="form-group">
+                    <div class="input-wrapper">
+                        <label style="display: none" for="searchbox">Search</label>
+                        <input type='search' id="searchbox" autocomplete="off" name="search"
+                        placeholder="Search for Topics...." />
+                    </div>
+                    <button type="submit" name="basicsearch" id="basicsearch" class="submit_btn">Search</button>
+                  </div>
+                    <div class="float-right">
+                        <ul class="nav">
+                            <li><a data-toggle="collapse" href="#multiCollapseExample1" role="button" aria-expanded="false"
+                                   aria-controls="multiCollapseExample1">Advanced Search</a>
+                        </ul>
+                    </div>
+                </form>
+
+                <div class="collapse multi-collapse mt-5" style="padding-left: 8px;" id="multiCollapseExample1">
+                    <div class="card card-body toggle_body">
+                        <form action="search.php" method="get">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="author">Author</label>
+                                        <input type="text" class="form-control" placeholder="" id="author" name="author">
+                                    </div>
+                                </div>
+                                <!--  col-md-6   -->
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="department">Department</label>
+                                        <input type="text" class="form-control" placeholder="" id="department" name="department">
+                                    </div>
+                                </div>
+                                <!--  col-md-6   -->
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="subject">Subject</label>
+                                        <input type="text" class="form-control" placeholder="" id="subject" name="subject">
+                                    </div>
+                                </div>
+                                <!--  col-md-6   -->
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="publisher">Publisher</label>
+                                        <input type="tel" class="form-control" id="publisher" name="publisher">
+                                    </div>
+                                </div>
+                                <!--  col-md-6   -->
+                            </div>
+
+                            <button type="submit" class="btn btn-primary mt-2" name="advancedsearch" id="advancedsearch">Submit</button>
+                        </form>
+                    </div>
                 </div>
-                <button type="submit" class="submit_btn">Search</button>
-              </div>
-              <div class="float-right">
-                <ul class="nav">
-                  <li><a href="#">Advanced Search</a></li>
-                </ul>
-              </div>
             </div>
 
-          </form>
         </div>
       </div>
     </section>
@@ -94,6 +137,6 @@ require 'navigation.php'
     </section>
     <!--================End Solution Area =================-->
 <?php
-require 'footer.php'
+require_once 'footer.php'
 ?>
 

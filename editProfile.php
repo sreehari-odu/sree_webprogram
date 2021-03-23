@@ -1,8 +1,8 @@
 <?php
-require 'header.php';
-require 'navigation.php';
-require 'helpers.php';
-require 'processs.php';
+require_once 'header.php';
+require_once 'navigation.php';
+require_once 'helpers.php';
+require_once 'processs.php';
 ?>
 
 <section class="doc_banner_area single_breadcrumb">
@@ -152,5 +152,5 @@ require 'processs.php';
 </section>
 <!--================End Forum Content Area =================-->
 <?php
-require 'footer.php';
+require_once 'footer.php';
 ?>
