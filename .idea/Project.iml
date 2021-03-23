@@ -6,6 +6,12 @@
       <excludeFolder url="file://$MODULE_DIR$/vendor/starkbank/ecdsa" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/sendgrid/php-http-client" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/sendgrid/sendgrid" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/phpmailer/phpmailer" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/elasticsearch/elasticsearch" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/react/promise" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/psr/log" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/ezimuel/ringphp" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/ezimuel/guzzlestreams" />
     </content>
     <orderEntry type="jdk" jdkName="Python 3.8" jdkType="Python SDK" />
     <orderEntry type="sourceFolder" forTests="false" />

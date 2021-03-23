@@ -6,6 +6,7 @@ $fname="";
 $lname="";
 $email="";
 $errors = array();
+require_once 'vendor/autoload.php';
 
 require_once  'config.php';
 require_once  'email.php';
@@ -196,12 +197,12 @@ if(isset($_REQUEST['token'])){
             array_push($errors, "Your token has already been used. Please try to reset your password again by clicking <a href='resetpassword.php'>here</a>");
             unset($_REQUEST['token']);
         }
-         if(time() - strtotime($resetRecord['created_date']) >= 3600){
+        if(time() - strtotime($resetRecord['created_date']) >= 3600){
             array_push($errors, "Your token is expired. Please try to reset your password again by clicking <a href='resetpassword.php'>here</a>");
-             unset($_REQUEST['token']);
+            unset($_REQUEST['token']);
         }else{
-             $_SESSION['token'] = $token;
-         }
+            $_SESSION['token'] = $token;
+        }
     }
 
 
@@ -243,4 +244,157 @@ if (isset($_POST['updatepass'])) {
 //        }
 //    }
 }
+if(isset($_POST['addDocument'])){
+    $client = Elasticsearch\ClientBuilder::create()->build();
+    $params = [
+        'index' => 'dissertation',
+        'body'  => [
+            '_source' => false,
+            'fields' => [
+                '_id'
+            ],
+            'query' => [
+                'match_all' => ["boost" => 1.0]
+            ],
+            'sort' => [
+                '_id' => 'desc'
+            ],
+            'size' => 1
+        ]
+    ];
 
+    $results = $client->search($params);
+
+
+    $id = $results['hits']['hits'][0]["_id"] + 1;
+    $doc = array("handle"=>$id);
+    if(isset($_POST['contributor_author'])){
+        $doc += ["contributor_author" => $_POST['contributor_author']];
+    }
+    if(isset($_POST['date_accessioned'])){
+        $doc += ["date_accessioned" => str_replace('+00:00', 'Z', gmdate('c', strtotime($_POST['date_accessioned'])))];
+    }
+    if(isset($_POST['date_available'])){
+        $doc += ["date_available" => str_replace('+00:00', 'Z', gmdate('c', strtotime($_POST['date_available'])))];
+    }
+    if(isset($_POST['date_issued'])){
+        $doc += ["date_issued" => $_POST['date_issued']];
+    }
+    if(isset($_POST['identifier_other'])){
+        $doc += ["identifier_other" => $_POST['identifier_other']];
+    }
+    if(isset($_POST['identifier_uri'])){
+        $doc += ["identifier_uri" => $_POST['identifier_uri']];
+    }
+    if(isset($_POST['identifier_sourceurl'])){
+        $doc += ["identifier_sourceurl" => $_POST['identifier_sourceurl']];
+    }
+    if(isset($_POST['identifier_oclc'])){
+        $doc += ["identifier_oclc" => $_POST['identifier_oclc']];
+    }
+    if(isset($_POST['description'])){
+        $doc += ["description" => $_POST['description']];
+    }
+    if(isset($_POST['description_abstract'])){
+        $doc += ["description_abstract" => $_POST['description_abstract']];
+    }
+    if(isset($_POST['description_provenance'])){
+        $doc += ["description_provenance" => $_POST['description_provenance']];
+    }
+    if(isset($_POST['description_sponsorship'])){
+        $doc += ["description_sponsorship" => $_POST['description_sponsorship']];
+    }
+    if(isset($_POST['format_medium'])){
+        $doc += ["format_medium" => $_POST['format_medium']];
+    }
+    if(isset($_POST['publisher'])){
+        $doc += ["publisher" => $_POST['publisher']];
+    }
+    if(isset($_POST['rights'])){
+        $doc += ["rights" => $_POST['rights']];
+    }
+    if(isset($_POST['subject'])){
+        $doc += ["subject" => $_POST['subject']];
+    }
+    if(isset($_POST['subject_lcc'])){
+        $doc += ["subject_lcc" => $_POST['subject_lcc']];
+    }
+    if(isset($_POST['subject_lcsh'])){
+        $doc += ["subject_lcsh" => $_POST['subject_lcsh']];
+    }
+    if(isset($_POST['title'])){
+        $doc += ["title" => $_POST['title']];
+    }
+    if(isset($_POST['type'])){
+        $doc += ["type" => $_POST['type']];
+    }
+    if(isset($_POST['language_iso'])){
+        $doc += ["language_iso" => $_POST['language_iso']];
+    }
+    if(isset($_POST['contributor_author'])){
+        $doc += ["contributor_author" => $_POST['contributor_author']];
+    }
+    if(isset($_POST['relation'])){
+        $doc += ["relation" => $_POST['relation']];
+    }
+    if(isset($_POST['contributor_department'])){
+        $doc += ["contributor_department" => $_POST['contributor_department']];
+    }
+    if(isset($_POST['description_degree'])){
+        $doc += ["description_degree" => $_POST['description_degree']];
+    }
+    if(isset($_POST['contributor_committeechair'])){
+        $doc += ["contributor_committeechair" => $_POST['contributor_committeechair']];
+    }
+    if(isset($_POST['contributor_committeecochair'])){
+        $doc += ["contributor_committeecochair" => $_POST['contributor_committeecochair']];
+    }
+    if(isset($_POST['contributor_committeemember'])){
+        $doc += ["contributor_committeemember" => $_POST['contributor_committeemember']];
+    }
+    if(isset($_POST['degree_name'])){
+        $doc += ["v" => $_POST['degree_name']];
+    }
+    if(isset($_POST['degree_level'])){
+        $doc += ["degree_level" => $_POST['degree_level']];
+    }
+    if(isset($_POST['degree_grantor'])){
+        $doc += ["degree_grantor" => $_POST['degree_grantor']];
+    }
+    if(isset($_POST['degree_discipline'])){
+        $doc += ["degree_discipline" => $_POST['degree_discipline']];
+    }
+    if(isset($_POST['date_adate'])){
+        $doc += ["date_adate" => $_POST['date_adate']];
+    }
+    if(isset($_POST['date_sdate'])){
+        $doc += ["date_sdate" => $_POST['date_sdate']];
+    }
+    if(isset($_POST['date_rdate'])){
+        $doc += ["date_rdate" => $_POST['date_rdate']];
+    }
+    if(isset($_POST['document'])){
+        $doc += ["contributor_author" => $_POST['contributor_author']];
+    }
+    $target_dir = "resources/";
+    $target_file = $target_dir . basename($_FILES["document"]["name"]);
+    //echo json_encode($doc);
+    $params = [
+      'index' => 'dissertation',
+      'id' => $id,
+      'body' => json_encode($doc),
+
+    ];
+    $response = $client->index($params);
+    //echo $response;
+    header('location: index.php');
+    /*
+    $uploadOk = 1;
+    if (move_uploaded_file($_FILES["document"]["tmp_name"], $target_file)) {
+        echo "The file ". htmlspecialchars( basename( $_FILES["fileToUpload"]["name"])). " has been uploaded.";
+    } else {
+        echo "Sorry, there was an error uploading your file.";
+    }
+     */
+
+}

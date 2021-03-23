@@ -2,7 +2,7 @@
 require_once 'header.php';
 require_once 'navigation.php';
 require_once 'helpers.php';
-
+require_once 'processs.php';
 
 ?>
 <section class="doc_banner_area single_breadcrumb">
@@ -34,7 +34,11 @@ require_once 'helpers.php';
 
         <div class="col-lg-12 doc-middle-content">
 
-            <form action="addDocument.php" class="row login_form" method="post">
+            <form action="addDocument.php" class="row login_form" method="post" enctype="multipart/form-data">
+                <div class="col-sm-6 form-group">
+                    <label class="small_text" for="title">Title</label>
+                    <input type="text" class="form-control" required name="title" id="title" placeholder="" autocomplete="off">
+                </div>
                 <div class="col-sm-6 form-group">
                     <label class="small_text" for="contributor_author">Author</label>
                     <input type="text" class="form-control" required name="contributor_author" id="contributor_author" placeholder="" autocomplete="off">
@@ -165,7 +169,7 @@ require_once 'helpers.php';
                     <input type="file" class="form-control" required name="document" id="document" placeholder="" autocomplete="off">
                 </div>
                 <div class="col-lg-12 text-center">
-                    <input type="submit" class="btn action_btn thm_btn" name="register" id="register" value="Create an account"/>
+                    <input type="submit" class="btn action_btn thm_btn" name="addDocument" id="addDocument" value="Submit"/>
                 </div>
             </form>
 

@@ -68,7 +68,17 @@ if(isset($_REQUEST['id'])){
             <strong>Degree : </strong><span><?php  echo printArrayValue($doc['_source']['degree_name']);?></span><br>
             <strong>Abstract : </strong><span><?php  echo printArrayValue($doc['_source']['description_abstract']);?></span><br>
             <strong>Publisher : </strong><span><?php  echo printArrayValue($doc['_source']['publisher']);?></span><br>
-            <strong>Subject(s) : </strong><span><?php  echo printArrayValue($doc['_source']['subject']);?></span>
+            <strong>Subject(s) : </strong><span><?php  echo printArrayValue($doc['_source']['subject']);?></span><br/>
+            <?php
+            if(is_array($doc['_source']['relation_haspart'])){
+                foreach ($doc['_source']['relation_haspart'] as $document){
+                    echo '<a href="resources/'.$doc['_id'].'/'.$document.'" class="btn btn-dark mt-2">Download '.$document.'</a><br>';
+                }
+            }else{
+                echo '<a href="resources/'.$doc['_id'].'/'.$doc['_source']['relation_haspart'].'" class="btn btn-dark mt-2">Download '.$doc['_source']['relation_haspart'].'</a><br>';
+            }
+            //echo json_encode($doc['_source']);
+            ?>
 
         </div>
     </div>

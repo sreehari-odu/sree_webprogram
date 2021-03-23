@@ -6,6 +6,12 @@
       <path value="$PROJECT_DIR$/vendor/starkbank/ecdsa" />
       <path value="$PROJECT_DIR$/vendor/sendgrid/php-http-client" />
       <path value="$PROJECT_DIR$/vendor/sendgrid/sendgrid" />
+      <path value="$PROJECT_DIR$/vendor/phpmailer/phpmailer" />
+      <path value="$PROJECT_DIR$/vendor/elasticsearch/elasticsearch" />
+      <path value="$PROJECT_DIR$/vendor/react/promise" />
+      <path value="$PROJECT_DIR$/vendor/psr/log" />
+      <path value="$PROJECT_DIR$/vendor/ezimuel/ringphp" />
+      <path value="$PROJECT_DIR$/vendor/ezimuel/guzzlestreams" />
     </include_path>
   </component>
   <component name="PhpProjectSharedConfiguration" php_language_level="8.0" />
