@@ -238,11 +238,34 @@ if (isset($_POST['updatepass'])) {
             header('location: signin.php');
         }
     }
-//    else{
-//        if(isset($_REQUEST['token'])){
-//            unset($_REQUEST['token']);
-//        }
-//    }
+}
+// Update password through Reset Password Link
+if (isset($_POST['claims'])) {
+    $document = $_POST['document'];
+    $user = $_SESSION['uname'];
+    for($i = 0; $i < count($_POST['claim']); $i++)
+    {
+        $claim = mysqli_real_escape_string($db, $_POST['claim'][$i]);
+        $reproduce = mysqli_real_escape_string($db, $_POST['reproduce'][$i]);
+        $sourcecode = mysqli_real_escape_string($db, $_POST['sourcecode'][$i]);
+        $datasets = mysqli_real_escape_string($db, $_POST['datasets'][$i]);
+        $results= mysqli_real_escape_string($db, $_POST['results'][$i]);
+        echo json_encode($_POST);
+        if (empty(trim($claim))) continue;
+
+        $sql = "INSERT INTO claims(document_id, user_id, claim, can_reproduce,source_code,datasets,experiments_and_results)
+            VALUES($document, '$user', '$claim', '$reproduce','$sourcecode','$datasets','$results')";
+        mysqli_query($db, $sql);
+    }
+    if(mysqli_error($db))
+    {
+        echo "Data base error occured";
+    }
+    else
+    {
+        header('location: http://localhost/document.php?id='.$document);
+    }
+
 }
 if(isset($_POST['addDocument'])){
     $client = Elasticsearch\ClientBuilder::create()->build();

@@ -1,5 +1,9 @@
+-- phpMyAdmin SQL Dump
+-- version 5.0.4
+-- https://www.phpmyadmin.net/
+--
 -- Host: 127.0.0.1
--- Generation Time: Mar 03, 2021 at 07:20 PM
+-- Generation Time: Apr 07, 2021 at 01:47 PM
 -- Server version: 10.4.17-MariaDB
 -- PHP Version: 8.0.2
 
@@ -16,6 +20,30 @@ SET time_zone = "+00:00";
 --
 -- Database: `cs518`
 --
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `claims`
+--
+
+CREATE TABLE `claims` (
+  `document_id` int(11) NOT NULL,
+  `user_id` varchar(20) NOT NULL,
+  `claim` varchar(256) NOT NULL,
+  `can_reproduce` varchar(10) DEFAULT NULL,
+  `source_code` varchar(256) DEFAULT NULL,
+  `datasets` varchar(256) DEFAULT NULL,
+  `experiments_and_results` text DEFAULT NULL,
+  `claim_date` timestamp NOT NULL DEFAULT current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `claims`
+--
+
+INSERT INTO `claims` (`document_id`, `user_id`, `claim`, `can_reproduce`, `source_code`, `datasets`, `experiments_and_results`, `claim_date`) VALUES
+(23159, 'sthir004', 'This is a sample claim', 'Yes', 'https://stackoverflow.com/', 'CDC Dataset', 'Some experiments and results go here', '2021-04-07 16:18:03');
 
 -- --------------------------------------------------------
 
@@ -51,8 +79,8 @@ CREATE TABLE `users` (
 
 INSERT INTO `users` (`uname`, `fname`, `lname`, `email`, `password`, `created_date`) VALUES
 ('jdoe', 'John', 'Doe', 'jdoe@odu.edu', '5f4dcc3b5aa765d61d8327deb882cf99', '2021-03-03 19:18:48'),
-('s1thiriv', 'Sree', 'Thiriveedhi', 's1thiriv@odu.edu', '5f4dcc3b5aa765d61d8327deb882cf99', '2021-03-03 19:18:28'),
-('sreehari', 'Hari', 'Thiriveedhi', 'sreeharithiriveedhi03@gmail.com', '5f4dcc3b5aa765d61d8327deb882cf99', '2021-03-03 19:19:30'),
+('sree', 'SREEHARI', 'THIRIVEEDHI', 'sreeharithiriveedhi03@gmail.com', 'e10adc3949ba59abbe56e057f20f883e', '2021-03-23 10:41:58'),
+('sreehari', 'Hari', 'Thiriveedhi', 'sreeharithiriveedhi04@gmail.com', '5f4dcc3b5aa765d61d8327deb882cf99', '2021-03-03 19:19:30'),
 ('sreeharithiriveedhi', 'Sreehari', 'Thiriveedhi', 'sreeharithiriveedhi95@gmail.com', '5f4dcc3b5aa765d61d8327deb882cf99', '2021-03-03 19:20:17'),
 ('sthir004', 'Sree Hari', 'Thiriveedhi', 'sthir004@odu.edu', '5f4dcc3b5aa765d61d8327deb882cf99', '2021-03-03 19:17:36');
 

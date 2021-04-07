@@ -22,7 +22,7 @@ require_once 'navigation.php'
       </ul>
       <div class="container">
         <div class="doc_banner_content">
-          <h2 class="wow fadeInUp">Coming Soon!</h2>
+          <h2 class="wow fadeInUp">Welcome to ODU Thesis and Dissertation Portal!</h2>
 
             <div class="header_search_form_info">
                 <form action="search.php" class="header_search_form" method="get">

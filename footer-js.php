@@ -10,6 +10,7 @@
 <script src="assets/mcustomscrollbar/jquery.mCustomScrollbar.concat.min.js"></script>
 <script src="js/theme.js"></script>
 <script src="js/main.js"></script>
+<script src="js/claims.js"></script>
 <script type="text/javascript" src="https://cdn.datatables.net/v/dt/dt-1.10.23/sl-1.3.1/datatables.min.js"></script>
 </body>
 

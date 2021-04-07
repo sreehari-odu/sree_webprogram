@@ -17,6 +17,14 @@ function _ago($tm,$rcs = 0) {
     if(($rcs == 1)&&($v >= 1)&&(($cur_tm-$_tm) > 0)) $x .= time_ago($_tm);
     return $x . ' ago';
 }
+
+function highlight($text, $words) {
+    $highlighted = preg_filter('/' . preg_quote($words, '/') . '/i', '<mark>$0</mark>', $text);
+    if (!empty($highlighted)) {
+        $text = $highlighted;
+    }
+    return $text;
+}
 function printArrayValue($input){
     $returnString = '';
     if(is_array($input)){
@@ -31,4 +39,19 @@ function printArrayValue($input){
         return $input;
     }
     return $returnString;
+}
+function getclaims($document){
+    $sql = "select user_id,claim,can_reproduce,source_code,datasets,experiments_and_results,claim_date,fname,lname from claims,users where claims.user_id = users.uname and document_id = $document";
+    $result = mysqli_query($GLOBALS["db"], $sql);
+    $return_arr = array();
+    //$resultRecord = mysqli_fetch_assoc($result);
+    if(mysqli_num_rows($result)>0){
+        while ($row = mysqli_fetch_array($result, MYSQLI_ASSOC)) {
+            array_push($return_arr,$row);
+        }
+        return $return_arr;
+    }
+
+    else
+        return null;
 }

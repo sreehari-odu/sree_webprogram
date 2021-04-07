@@ -1,7 +1,8 @@
 <?php
 require_once 'header.php';
 require_once 'navigation.php';
-require_once 'helpers.php'
+require_once 'helpers.php';
+require_once 'auth.php';
 ?>
         <section class="doc_banner_area single_breadcrumb">
             <ul class="list-unstyled banner_shap_img">

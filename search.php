@@ -197,9 +197,9 @@ if(isset($_REQUEST['basicsearch'])){
                         ?>
                             <tr>
                                 <td class="text-wrap">
-                                    <a href="document.php?id=<?php  echo $hit['_id'] ?>"><?php  echo $hit['_source']['title'] ?></a>
+                                    <a href="document.php?id=<?php  echo $hit['_id'] ?>"><?php  echo highlight($hit['_source']['title'],$searchstring); ?></a>
                                     <p><?php  echo $hit['_source']['contributor_author'] ?>, <?php  echo $hit['_source']['date_issued'] ?>, <?php  echo $hit['_source']['contributor_department'] ?></p>
-                                    <p><strong>Abstract: </strong><?php  echo mb_strimwidth($hit['_source']['description_abstract'],0,300,"..."); ?></p>
+                                    <p><strong>Abstract: </strong><?php  echo  highlight(mb_strimwidth($hit['_source']['description_abstract'],0,300,"..."),$searchstring); ?></p>
                                 </td>
                             </tr>
                         <?php

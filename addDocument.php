@@ -61,7 +61,7 @@ require_once 'processs.php';
                 </div>
                 <div class="col-sm-6 form-group">
                     <label class="small_text" for="identifier_uri">Identifier URI</label>
-                    <input type="url" class="form-control" required name="identifier_uri" id="identifier_uri" placeholder="" autocomplete="off">
+                    <input type="text" class="form-control" required name="identifier_uri" id="identifier_uri" placeholder="" autocomplete="off">
                 </div>
                 <div class="col-sm-6 form-group">
                     <label class="small_text" for="identifier_sourceurl">Identifier Source URL</label>
