@@ -108,8 +108,7 @@ require_once 'auth.php';
                                     </a>
                                 </li>
                                 <li class="nav-item" role="presentation">
-                                    <a class="nav-link" id="fav-tab" data-toggle="tab" href="#fav" role="tab"
-                                        aria-controls="fav" aria-selected="false">
+                                    <a class="nav-link" id="fav-tab" href="favorites.php" >
                                         <i class="icon_heart"></i> Favorites
                                     </a>
                                 </li>

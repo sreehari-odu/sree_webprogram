@@ -25,12 +25,13 @@ require_once 'navigation.php'
           <h2 class="wow fadeInUp">Welcome to ODU Thesis and Dissertation Portal!</h2>
 
             <div class="header_search_form_info">
-                <form action="search.php" class="header_search_form" method="get">
+                <form action="search.php" id="searchform" class="header_search_form" method="get">
                   <div class="form-group">
                     <div class="input-wrapper">
                         <label style="display: none" for="searchbox">Search</label>
                         <input type='search' id="searchbox" autocomplete="off" name="search"
                         placeholder="Search for Topics...." />
+                        <img onclick="startDictation()" class="search_microphone" src="//i.imgur.com/cHidSVu.gif" />
                     </div>
                     <button type="submit" name="basicsearch" id="basicsearch" class="submit_btn">Search</button>
                   </div>

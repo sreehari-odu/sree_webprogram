@@ -20,6 +20,8 @@ error_reporting(E_ERROR | E_PARSE);
     <link rel="stylesheet" href="assets/mcustomscrollbar/jquery.mCustomScrollbar.min.css">
     <link rel="stylesheet" href="css/style-main.css">
     <link rel="stylesheet" href="css/responsive.css">
+
+    <script src="https://www.google.com/recaptcha/api.js?render=6Le8hq8aAAAAANvk21e2D2gKc0I-PTd9BHeO3Gae"></script>
 </head>
 <body data-scroll-animation="true">
 

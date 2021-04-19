@@ -10,8 +10,32 @@ $author= "";
 $department = "";
 $subject = "";
 $publisher = "";
-if(isset($_REQUEST['basicsearch'])){
+$isbasicSearch="true";
+$spellcorrected = "false";
+if(isset($_REQUEST['basicsearch']) || !isset($_REQUEST['advancedsearch'])){
     $searchstring = strip_tags($_REQUEST['search']);
+    $correctionParams = [
+        'index' => 'dissertation',
+        'body'  => [
+            'suggest' => [
+                'mytermsuggester' => [
+                    'text' => $searchstring,
+                    'term' => [
+                        'field' => 'title'
+                    ]
+                ]
+            ]
+        ]
+    ];
+    $checkresults = $client->search($correctionParams);
+    if(isset($checkresults['suggest']['mytermsuggester'][0]['options'][0])){
+        $suggestText = $checkresults['suggest']['mytermsuggester'][0]['options'][0]['text'];
+        if($suggestText != $searchstring){
+            $searchstring = $suggestText;
+        }
+    }
+
+    //echo $suggestText;
     $params = [
         'index' => 'dissertation',
         'body'  => [
@@ -24,6 +48,7 @@ if(isset($_REQUEST['basicsearch'])){
 
     $results = $client->search($params);
 }elseif (isset($_REQUEST['advancedsearch'])){
+    $isbasicSearch="false";
     $author = strip_tags($_REQUEST['author']);
     $publisher = strip_tags($_REQUEST['publisher']);
     $department = strip_tags($_REQUEST['department']);
@@ -92,12 +117,13 @@ if(isset($_REQUEST['basicsearch'])){
         </div>
     </div>
     <div class="header_search_form_info">
-        <form action="search.php" class="header_search_form" method="get">
+        <form action="search.php" id="searchform"  class="header_search_form" method="get">
             <div class="form-group">
                 <div class="input-wrapper">
                     <label style="display: none" for="searchbox">Search</label>
                     <input type='search' id="searchbox" autocomplete="off" name="search"
                            placeholder="" value="<?php echo $searchstring;?>" />
+                    <img onclick="startDictation()" class="search_microphone" src="//i.imgur.com/cHidSVu.gif" />
                 </div>
                 <button type="submit" name="basicsearch" id="basicsearch" class="submit_btn">Search</button>
             </div>
@@ -157,7 +183,7 @@ if(isset($_REQUEST['basicsearch'])){
     <div class="p-5">
         <h2>Search Results for
             <em><?php
-                if(isset($_REQUEST['basicsearch'])){
+                if($isbasicSearch){
                     echo $searchstring;
                 }elseif (isset($_REQUEST['advancedsearch'])){
                     $display = "";
@@ -197,9 +223,45 @@ if(isset($_REQUEST['basicsearch'])){
                         ?>
                             <tr>
                                 <td class="text-wrap">
+                                    <?php
+                                    if($isbasicSearch){
+                                    ?>
                                     <a href="document.php?id=<?php  echo $hit['_id'] ?>"><?php  echo highlight($hit['_source']['title'],$searchstring); ?></a>
                                     <p><?php  echo $hit['_source']['contributor_author'] ?>, <?php  echo $hit['_source']['date_issued'] ?>, <?php  echo $hit['_source']['contributor_department'] ?></p>
                                     <p><strong>Abstract: </strong><?php  echo  highlight(mb_strimwidth($hit['_source']['description_abstract'],0,300,"..."),$searchstring); ?></p>
+                                    <?php
+                                    }else if (isset($_REQUEST['advancedsearch'])){
+                                        ?>
+                                        <a href="document.php?id=<?php  echo $hit['_id'] ?>"><?php  echo $hit['_source']['title']; ?></a>
+                                        <p>
+                                            <?php  if(!is_null($author)&& trim($author)!=''){echo highlight($hit['_source']['contributor_author'],$author);} else {echo $hit['_source']['contributor_author'];} ?>,
+                                            <?php  echo $hit['_source']['date_issued'] ?>,
+                                            <?php  if(!is_null($department) && trim($department)!=''){echo highlight($hit['_source']['contributor_department'],$department);} else {echo $hit['_source']['contributor_department'];} ?>
+                                        </p>
+                                        <p><strong>Abstract: </strong><?php  echo  mb_strimwidth($hit['_source']['description_abstract'],0,300,"..."); ?></p>
+                                        <?php
+                                    }
+                                    ?>
+                                    <?php
+                                    if(isset($_SESSION['uname'])){
+                                        ?>
+                                        <div id="fav-<?php echo $hit['_id'];?>">
+                                            <?php
+                                        if(isFavorite($hit['_id'])){
+                                            ?>
+                                            <button class="btn remfav" data-id="<?php echo $hit['_id'];?>" id="rem-fav-<?php echo $hit['_id'];?>"> <i class="icon_heart_alt"></i> Remove from Favorites</button>
+                                            <?php
+                                        }else{
+                                    ?>
+                                            <button class="btn addfav" data-id="<?php echo $hit['_id'];?>" id="add-fav-<?php echo $hit['_id'];?>"> <i class="icon_heart"></i> Add to Favorites</button>
+                                    <?php
+
+                                        }
+                                        ?>
+                                        </div>
+                                    <?php
+                                    }
+                                    ?>
                                 </td>
                             </tr>
                         <?php

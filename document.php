@@ -91,8 +91,25 @@ if(isset($_REQUEST['id'])){
             if($claims!=null){
                 foreach($claims as $claim){
                     ?>
-                    <div class="form-group">
-                        <label class="small_text">Claim by <em><?php echo $claim['fname'] .' ' . $claim['lname']?></em></label><br>
+                    <div class="form-group" id="claimdiv-<?php echo $claim['claim_id'];?>">
+                        <label class="small_text">Claim by <em><?php echo $claim['fname'] .' ' . $claim['lname']?></em>
+                            <?php
+                            if(isset($_SESSION['uname'])){
+                            ?>
+                            <button class="btn claimup <?php if(claimUpDown($claim['claim_id'],'up')) { echo 'updownactive';} ?>" id="up-<?php echo $claim['claim_id'];?>" data-id="<?php echo $claim['claim_id'];?>"><img src="img/icon/i-thumbs-up.png"/></button>
+                            <button class="btn claimdown <?php if(claimUpDown($claim['claim_id'],'down')) { echo 'updownactive';} ?> " id="down-<?php echo $claim['claim_id'];?>" data-id="<?php echo $claim['claim_id'];?>"><img src="img/icon/i-thumbs-down.png"/></button>
+                            <a class="badge_vote ml-2" id="badge-<?php echo $claim['claim_id'];?>" href="#"><?php echo claimvotes($claim['claim_id']);?></a>
+                                <?php
+                                    if($claim['user_id']==$_SESSION['uname']){
+                                ?>
+                            <button class="btn mt-1 deleteclaim" data-id="<?php echo $claim['claim_id'];?>" id="deleteclaim-<?php echo $claim['claim_id'];?>"><i class="icon_trash"></i>&nbsp;Delete Claim</button>
+                                <?php
+                                    }
+                                ?>
+                            <?php
+                            }
+                            ?>
+                        </label><br>
                         <label class="text-body"><em>Claim: </em><?php echo$claim['claim'];?></label><br>
                         <label class="text-body"><em>Claim can be reproduced: </em><?php echo$claim['can_reproduce'];?></label><br>
                         <label class="text-body"><em>Source code: </em><?php echo$claim['source_code'];?></label><br>

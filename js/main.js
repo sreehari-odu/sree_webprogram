@@ -1072,7 +1072,408 @@
       }
     }
   }
-
+  $(".addfav").click(function () {
+    var id = $(this).attr('data-id');
+    $.ajax({
+      type: "POST",
+      url: "ajaxRequests.php",
+      data: { type: "addfav", id: id },
+      success: function (data){
+        alert('Added to favorites');
+        var fieldid = "add-fav-"+id;
+        $("#"+fieldid).hide();
+      },
+      error: function (jqXHR, exception) {
+        var msg = '';
+        if (jqXHR.status === 0) {
+          msg = 'Not connect.\n Verify Network.';
+        } else if (jqXHR.status == 404) {
+          msg = 'Requested page not found. [404]';
+        } else if (jqXHR.status == 500) {
+          msg = 'Internal Server Error [500].';
+        } else if (exception === 'parsererror') {
+          msg = 'Requested JSON parse failed.';
+        } else if (exception === 'timeout') {
+          msg = 'Time out error.';
+        } else if (exception === 'abort') {
+          msg = 'Ajax request aborted.';
+        } else {
+          msg = 'Uncaught Error.\n' + jqXHR.responseText;
+        }
+        alert(msg);
+      },
+      dataType: "json"
+    });
+  });
+  $(".remfav").click(function () {
+    var id = $(this).attr('data-id');
+    $.ajax({
+      type: "POST",
+      url: "ajaxRequests.php",
+      data: { type: "remfav", id: id },
+      success: function (data){
+        alert('Removed From favorites');
+        var fieldid = "rem-fav-"+id;
+        $("#"+fieldid).hide();
+        //var favfield = "fav-"+id;
+        //var newbutton = "<button class=\"btn remfav\" data-id=\"<?php echo $hit['_id'];?>\" id=\"rem-fav-<?php echo $hit['_id'];?>\"> <i class=\"icon_heart\"></i> Add to Favorites</button>"
+        //$("#"+favfield).append(newbutton)
+      },
+      error: function (jqXHR, exception) {
+        var msg = '';
+        if (jqXHR.status === 0) {
+          msg = 'Not connect.\n Verify Network.';
+        } else if (jqXHR.status == 404) {
+          msg = 'Requested page not found. [404]';
+        } else if (jqXHR.status == 500) {
+          msg = 'Internal Server Error [500].';
+        } else if (exception === 'parsererror') {
+          msg = 'Requested JSON parse failed.';
+        } else if (exception === 'timeout') {
+          msg = 'Time out error.';
+        } else if (exception === 'abort') {
+          msg = 'Ajax request aborted.';
+        } else {
+          msg = 'Uncaught Error.\n' + jqXHR.responseText;
+        }
+        alert(msg);
+      },
+      dataType: "json"
+    });
+  });
+  $(".delfav").click(function () {
+    var id = $(this).attr('data-id');
+    $.ajax({
+      type: "POST",
+      url: "ajaxRequests.php",
+      data: { type: "remfav", id: id },
+      success: function (data){
+        alert('Removed From favorites');
+        var favfield = "cell-"+id;
+        $("#"+favfield).hide();
+        //var favfield = "fav-"+id;
+        //var newbutton = "<button class=\"btn remfav\" data-id=\"<?php echo $hit['_id'];?>\" id=\"rem-fav-<?php echo $hit['_id'];?>\"> <i class=\"icon_heart\"></i> Add to Favorites</button>"
+        //$("#"+favfield).append(newbutton)
+      },
+      error: function (jqXHR, exception) {
+        var msg = '';
+        if (jqXHR.status === 0) {
+          msg = 'Not connect.\n Verify Network.';
+        } else if (jqXHR.status == 404) {
+          msg = 'Requested page not found. [404]';
+        } else if (jqXHR.status == 500) {
+          msg = 'Internal Server Error [500].';
+        } else if (exception === 'parsererror') {
+          msg = 'Requested JSON parse failed.';
+        } else if (exception === 'timeout') {
+          msg = 'Time out error.';
+        } else if (exception === 'abort') {
+          msg = 'Ajax request aborted.';
+        } else {
+          msg = 'Uncaught Error.\n' + jqXHR.responseText;
+        }
+        alert(msg);
+      },
+      dataType: "json"
+    });
+  });
+  $(".deleteclaim").click(function () {
+    var id = $(this).attr('data-id');
+    $.ajax({
+      type: "POST",
+      url: "ajaxRequests.php",
+      data: { type: "delclaim", id: id },
+      success: function (data){
+        alert('Claim Deleted');
+        var favfield = "claimdiv-"+id;
+        $("#"+favfield).hide();
+        //var favfield = "fav-"+id;
+        //var newbutton = "<button class=\"btn remfav\" data-id=\"<?php echo $hit['_id'];?>\" id=\"rem-fav-<?php echo $hit['_id'];?>\"> <i class=\"icon_heart\"></i> Add to Favorites</button>"
+        //$("#"+favfield).append(newbutton)
+      },
+      error: function (jqXHR, exception) {
+        var msg = '';
+        if (jqXHR.status === 0) {
+          msg = 'Not connect.\n Verify Network.';
+        } else if (jqXHR.status == 404) {
+          msg = 'Requested page not found. [404]';
+        } else if (jqXHR.status == 500) {
+          msg = 'Internal Server Error [500].';
+        } else if (exception === 'parsererror') {
+          msg = 'Requested JSON parse failed.';
+        } else if (exception === 'timeout') {
+          msg = 'Time out error.';
+        } else if (exception === 'abort') {
+          msg = 'Ajax request aborted.';
+        } else {
+          msg = 'Uncaught Error.\n' + jqXHR.responseText;
+        }
+        alert(msg);
+      },
+      dataType: "json"
+    });
+  });
+  $(".claimup").click(function () {
+    var id = $(this).attr('data-id');
+    if($(this).hasClass('updownactive')){
+      $.ajax({
+        type: "POST",
+        url: "ajaxRequests.php",
+        data: { type: "removevote", id: id },
+        success: function (data){
+          var upid = 'up-'+id;
+          $("#"+upid).removeClass('updownactive');
+          $.ajax({
+            type: "POST",
+            url: "ajaxRequests.php",
+            data: { type: "getvotecount", id: id },
+            success: function (data){
+              var badgeid = "badge-"+id;
+              $("#"+badgeid).text(data.message);
+            },
+            error: function (jqXHR, exception) {
+              var msg = '';
+              if (jqXHR.status === 0) {
+                msg = 'Not connect.\n Verify Network.';
+              } else if (jqXHR.status == 404) {
+                msg = 'Requested page not found. [404]';
+              } else if (jqXHR.status == 500) {
+                msg = 'Internal Server Error [500].';
+              } else if (exception === 'parsererror') {
+                msg = 'Requested JSON parse failed.';
+              } else if (exception === 'timeout') {
+                msg = 'Time out error.';
+              } else if (exception === 'abort') {
+                msg = 'Ajax request aborted.';
+              } else {
+                msg = 'Uncaught Error.\n' + jqXHR.responseText;
+              }
+              alert(msg);
+            },
+            dataType: "json"
+          });
+        },
+        error: function (jqXHR, exception) {
+          var msg = '';
+          if (jqXHR.status === 0) {
+            msg = 'Not connect.\n Verify Network.';
+          } else if (jqXHR.status == 404) {
+            msg = 'Requested page not found. [404]';
+          } else if (jqXHR.status == 500) {
+            msg = 'Internal Server Error [500].';
+          } else if (exception === 'parsererror') {
+            msg = 'Requested JSON parse failed.';
+          } else if (exception === 'timeout') {
+            msg = 'Time out error.';
+          } else if (exception === 'abort') {
+            msg = 'Ajax request aborted.';
+          } else {
+            msg = 'Uncaught Error.\n' + jqXHR.responseText;
+          }
+          alert(msg);
+        },
+        dataType: "json"
+      });
+    }else{
+      $.ajax({
+        type: "POST",
+        url: "ajaxRequests.php",
+        data: { type: "upclaim", id: id },
+        success: function (data){
+          var downid = 'down-'+id;
+          $("#"+downid).removeClass('updownactive');
+          var upid = 'up-'+id;
+          $("#"+upid).addClass('updownactive');
+          $.ajax({
+            type: "POST",
+            url: "ajaxRequests.php",
+            data: { type: "getvotecount", id: id },
+            success: function (data){
+              console.log(data.message);
+              var badgeid = "badge-"+id;
+              $("#"+badgeid).text(data.message);
+            },
+            error: function (jqXHR, exception) {
+              var msg = '';
+              if (jqXHR.status === 0) {
+                msg = 'Not connect.\n Verify Network.';
+              } else if (jqXHR.status == 404) {
+                msg = 'Requested page not found. [404]';
+              } else if (jqXHR.status == 500) {
+                msg = 'Internal Server Error [500].';
+              } else if (exception === 'parsererror') {
+                msg = 'Requested JSON parse failed.';
+              } else if (exception === 'timeout') {
+                msg = 'Time out error.';
+              } else if (exception === 'abort') {
+                msg = 'Ajax request aborted.';
+              } else {
+                msg = 'Uncaught Error.\n' + jqXHR.responseText;
+              }
+              alert(msg);
+            },
+            dataType: "json"
+          });
+        },
+        error: function (jqXHR, exception) {
+          var msg = '';
+          if (jqXHR.status === 0) {
+            msg = 'Not connect.\n Verify Network.';
+          } else if (jqXHR.status == 404) {
+            msg = 'Requested page not found. [404]';
+          } else if (jqXHR.status == 500) {
+            msg = 'Internal Server Error [500].';
+          } else if (exception === 'parsererror') {
+            msg = 'Requested JSON parse failed.';
+          } else if (exception === 'timeout') {
+            msg = 'Time out error.';
+          } else if (exception === 'abort') {
+            msg = 'Ajax request aborted.';
+          } else {
+            msg = 'Uncaught Error.\n' + jqXHR.responseText;
+          }
+          alert(msg);
+        },
+        dataType: "json"
+      });
+    }
+  });
+  $(".claimdown").click(function () {
+    var id = $(this).attr('data-id');
+    if($(this).hasClass('updownactive')){
+      $.ajax({
+        type: "POST",
+        url: "ajaxRequests.php",
+        data: { type: "removevote", id: id },
+        success: function (data){
+          var downid = 'down-'+id;
+          $("#"+downid).removeClass('updownactive');
+          $.ajax({
+            type: "POST",
+            url: "ajaxRequests.php",
+            data: { type: "getvotecount", id: id },
+            success: function (data){
+              var badgeid = "badge-"+id;
+              $("#"+badgeid).text(data.message);
+            },
+            error: function (jqXHR, exception) {
+              var msg = '';
+              if (jqXHR.status === 0) {
+                msg = 'Not connect.\n Verify Network.';
+              } else if (jqXHR.status == 404) {
+                msg = 'Requested page not found. [404]';
+              } else if (jqXHR.status == 500) {
+                msg = 'Internal Server Error [500].';
+              } else if (exception === 'parsererror') {
+                msg = 'Requested JSON parse failed.';
+              } else if (exception === 'timeout') {
+                msg = 'Time out error.';
+              } else if (exception === 'abort') {
+                msg = 'Ajax request aborted.';
+              } else {
+                msg = 'Uncaught Error.\n' + jqXHR.responseText;
+              }
+              alert(msg);
+            },
+            dataType: "json"
+          });
+        },
+        error: function (jqXHR, exception) {
+          var msg = '';
+          if (jqXHR.status === 0) {
+            msg = 'Not connect.\n Verify Network.';
+          } else if (jqXHR.status == 404) {
+            msg = 'Requested page not found. [404]';
+          } else if (jqXHR.status == 500) {
+            msg = 'Internal Server Error [500].';
+          } else if (exception === 'parsererror') {
+            msg = 'Requested JSON parse failed.';
+          } else if (exception === 'timeout') {
+            msg = 'Time out error.';
+          } else if (exception === 'abort') {
+            msg = 'Ajax request aborted.';
+          } else {
+            msg = 'Uncaught Error.\n' + jqXHR.responseText;
+          }
+          alert(msg);
+        },
+        dataType: "json"
+      });
+    }else{
+      $.ajax({
+        type: "POST",
+        url: "ajaxRequests.php",
+        data: { type: "downclaim", id: id },
+        success: function (data){
+          var upid = 'up-'+id;
+          $("#"+upid).removeClass('updownactive');
+          var downid = 'down-'+id;
+          $("#"+downid).addClass('updownactive');
+          $.ajax({
+            type: "POST",
+            url: "ajaxRequests.php",
+            data: { type: "getvotecount", id: id },
+            success: function (data){
+              console.log(data.message);
+              var badgeid = "badge-"+id;
+              $("#"+badgeid).text(data.message);
+            },
+            error: function (jqXHR, exception) {
+              var msg = '';
+              if (jqXHR.status === 0) {
+                msg = 'Not connect.\n Verify Network.';
+              } else if (jqXHR.status == 404) {
+                msg = 'Requested page not found. [404]';
+              } else if (jqXHR.status == 500) {
+                msg = 'Internal Server Error [500].';
+              } else if (exception === 'parsererror') {
+                msg = 'Requested JSON parse failed.';
+              } else if (exception === 'timeout') {
+                msg = 'Time out error.';
+              } else if (exception === 'abort') {
+                msg = 'Ajax request aborted.';
+              } else {
+                msg = 'Uncaught Error.\n' + jqXHR.responseText;
+              }
+              alert(msg);
+            },
+            dataType: "json"
+          });
+        },
+        error: function (jqXHR, exception) {
+          var msg = '';
+          if (jqXHR.status === 0) {
+            msg = 'Not connect.\n Verify Network.';
+          } else if (jqXHR.status == 404) {
+            msg = 'Requested page not found. [404]';
+          } else if (jqXHR.status == 500) {
+            msg = 'Internal Server Error [500].';
+          } else if (exception === 'parsererror') {
+            msg = 'Requested JSON parse failed.';
+          } else if (exception === 'timeout') {
+            msg = 'Time out error.';
+          } else if (exception === 'abort') {
+            msg = 'Ajax request aborted.';
+          } else {
+            msg = 'Uncaught Error.\n' + jqXHR.responseText;
+          }
+          alert(msg);
+        },
+        dataType: "json"
+      });
+    }
+  });
+  $("#register").click(function (e){
+    e.preventDefault();
+    grecaptcha.ready(function() {
+      grecaptcha.execute('6Le8hq8aAAAAANvk21e2D2gKc0I-PTd9BHeO3Gae', {action: 'register'}).then(function(token) {
+        // Add your logic to submit to your backend server here.
+        $('#signup').prepend('<input type="hidden" name="recaptchatoken" value="' + token + '">');
+        $('#signup').prepend('<input type="hidden" name="action" value="register">');
+        $('#signup').unbind('register').submit();
+      });
+    });
+  });
   $(document).ready(function () {
     onThisPageTitles($(".shortcode_info h4").toArray());
   })
@@ -1085,3 +1486,28 @@
   })
 
 })(jQuery);
+function startDictation() {
+
+  if (window.hasOwnProperty('webkitSpeechRecognition')) {
+
+    var recognition = new webkitSpeechRecognition();
+
+    recognition.continuous = false;
+    recognition.interimResults = false;
+
+    recognition.lang = "en-US";
+    recognition.start();
+
+    recognition.onresult = function(e) {
+      document.getElementById('searchbox').value
+          = e.results[0][0].transcript;
+      recognition.stop();
+      document.getElementById('searchform').submit();
+    };
+
+    recognition.onerror = function(e) {
+      recognition.stop();
+    }
+
+  }
+}

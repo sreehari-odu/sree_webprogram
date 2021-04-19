@@ -17,7 +17,7 @@ require_once 'processs.php';
                             <p>Already have an account? <a href="signin.php">Sign in</a></p>
                         </div>
                         <?php include ('errors.php');?>
-                        <form action="signup.php" class="row login_form" method="post">
+                        <form action="signup.php" class="row login_form" id="signup" method="post">
                             <div class="col-sm-6 form-group">
                                 <label class="small_text" for="fname">First name</label>
                                 <input type="text" class="form-control" required name="fname" id="fname" placeholder="" autocomplete="off">
