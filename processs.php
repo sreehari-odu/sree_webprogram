@@ -81,7 +81,7 @@ if(isset($_POST['action'])&& $_POST['action']=='register'){
                 $_SESSION['success'] = "You are now logged in";
                 $to = $email;
                 $subject = "Account Created";
-                $msg = "Hi there, Your account has been successfully created. \n\nYour username is ".$uname.".\n\n<a href=\"http://localhost/signin.php\">Click Here</a> to Login. ";
+                $msg = "Hi there, Your account has been successfully created. \n\nYour username is ".$uname.".\n\n<a href=\"http://localhost/profile.php\">Click Here</a> to Login. ";
                 $msg = wordwrap($msg,70);
 
                 $success = sendEmail($to, $subject, $msg);
@@ -90,7 +90,7 @@ if(isset($_POST['action'])&& $_POST['action']=='register'){
                 }else{
                     error_log('Successfully sent email');
                 }
-                header('location: profile.php');
+                header('location: message.php?');
             }
         } else {
             // spam submission
